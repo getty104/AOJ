@@ -14,3 +14,5 @@ end
 n.times do |i|
 		puts m[i].join(" ")
 end
+
+
