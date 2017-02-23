@@ -116,7 +116,6 @@ color[0] = BLACK
 u = 0
 loop{
 
-
 	n.times do |i|
 		pq << Vector.new(u, i, cost[u] + m[u][i] ) if color[i] == WHITE
 	end
