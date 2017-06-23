@@ -19,17 +19,28 @@ def darray(s1,s2,ini=nil); Array.new(s1){Array.new(s2){ini}}          end
 def rep(num);              num.times{|i|yield(i)}                     end
 def repl(st,en,n=1);       st.step(en,n){|i|yield(i)}                 end
 
-n = gif
-m = []
-rep n do
-  m << gi
+n = gif+1
+m = array 10**5+2,0
+m[0] += 1
+m[-2] -= 1
+count = 1
+rep n-1 do
+  l,r = gi
+  next if l > n
+  m[l-1] += 1
+  m[r] -= 1
+  count += 1
 end
-m.sort!
 
-max = 0
-tmp = m[0]
-rep n do |i|
-
+repl 1,10**5+1 do |i|
+  m[i] += m[i-1]
 end
+
+if count >= m.max
+puts m.max-2
+else
+  puts 0
+end
+
 
 
