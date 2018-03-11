@@ -18,34 +18,26 @@ def array(s,ini=nil);      Array.new(s){ini}                          end
 def darray(s1,s2,ini=nil); Array.new(s1){Array.new(s2){ini}}          end
 def rep(num);              num.times{|i|yield(i)}                     end
 def repl(st,en,n=1);       st.step(en,n){|i|yield(i)}                 end
-
-
+N = 86402
 ans = []
 loop {
   n = gif
   break if n == 0
-  st = []
-  en = []
+  m = array N,0
   rep n do
     s,e = gs
     stt = s.split(':').map(&:to_i)
     enn = e.split(':').map(&:to_i)
-    st << stt[0]*60*60 + stt[1]*60 + stt[2]
-    en << enn[0]*60*60 + enn[1]*60 + enn[2]
+    l = stt[0]*60*60 + stt[1]*60 + stt[2]
+    r = enn[0]*60*60 + enn[1]*60 + enn[2]
+    m[l]     += 1
+    m[r]   -= 1
   end
-  max = 0
-  st.sort!
-  en.sort!
-  rep n do |i|
-    tmp = 0
-    repl i, n-1 do |j|
-      if en[i] > st[j] && en[i] <= en[j]
-        tmp += 1
-        max = tmp if tmp > max
-      end
-    end
+
+  repl 1, N-1 do |i|
+    m[i] += m[i-1]
   end
-  ans << max
+  ans << m.max
 }
 
 puts ans
